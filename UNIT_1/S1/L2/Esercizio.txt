@@ -1,0 +1,23 @@
+Esercizio di oggi. 
+Vi chiediamo di analizzare i seguenti indirizzi IP e determinare i seguenti elementi: 
+- IP Network 
+- IP Gateway ‘convenzionale’ 
+- IP Broadcast 
+- Quantità di ottetti per gli host
+- Quantità e specificazione degli ottetti per la network 
+
+Esempi di indirizzi IP da analizzare: 
+
+1.1.1.1/8 ○ IP Network: 1.0.0.0 
+    IP Gateway ‘convenzionale’: 1.0.0.1 
+    IP Broadcast: 1.255.255.255 
+    Ottetti per gli host: 3 (i primi 8 bit sono per la network, i restanti 24 per gli host) 
+    Ottetti per la network: 1 (il primo ottetto)
+
+Vi chiediamo di analizzare i seguenti indirizzi IP e determinare gli elementi: 
+128.1.6.5/12 
+200.1.2.3/24
+192.192.1.1/22 
+126.5.4.3/9 
+200.1.9.8/24 
+172.16.0.4/16
