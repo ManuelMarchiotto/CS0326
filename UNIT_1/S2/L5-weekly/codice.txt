@@ -1,25 +1,27 @@
-Import datetime
+import datetime
 
-Def assistente_virtuale(comando):
-    comando_normalizzato = comando.strip().lower()
-    
-    if comando_normalizzato == “qual è la data di oggi?”:
-        oggi = datetime.date.today()
-        risposta = "La “data di oggi è “ + oggi.strftime(“&d/%m/%Y”)
-    elif comando_nomralizzato == “che ore sono?”:
-        ora_attuale = datetime.datetime.now()
-        risposta = “L’ora” attuale è “ + ora_attuale.strftime(“%H:%M”)
-    elif comando normalizzato == “come ti chiami?”:
-        risposta = "Mi chiamo Assistente Virtuale”
-    else:
-        rispsota = "Non ho capito la tua domanda.“
+def assistente_virtuale(comando):
 
+    comando_normalizzato = comando.strip().lower()
+    
+    if comando_normalizzato == "qual √® la data di oggi?":
+        oggi = datetime.date.today()
+        risposta = "La data di oggi √® " + oggi.strftime("%d/%m/%Y")   
+    elif comando_normalizzato == "che ore sono?":
+        ora_attuale = datetime.datetime.now()
+        risposta = "L'ora attuale √® " + ora_attuale.strftime("%H:%M")  
+    elif comando_normalizzato == "come ti chiami?":
+        risposta = "Mi chiamo Assistente Virtuale"   
+    else:
+        risposta = "Non ho capito la tua domanda."
+        
+    return risposta
 
 while True:
-    comando_utente = input("Cosa vuoi sapere? “)
-
-    if comando_utente.strip().lower() == “esci”:
-        print(“Arrivederci!”)
-        break
-    else:
-        print(assistente_virtuale(comando_utente))
+    comando_utente = input("Cosa vuoi sapere? ")
+    
+    if comando_utente.strip().lower() == "esci":
+        print("Arrivederci!")
+        break
+    else:
+        print(assistente_virtuale(comando_utente))
