@@ -1,16 +1,5 @@
 #!/usr/bin/env python3
-"""
-ai_dns_summary.py
-Raccoglie log DNS per un dominio e invoca l'API Gemini per sintetizzare
-i risultati in linguaggio naturale, evidenziando anomalie e suggerimenti.
 
-Setup richiesto:
-    pip install dnspython google-generativeai --break-system-packages
-    export GEMINI_API_KEY="la_tua_chiave"   (ottenibile su https://aistudio.google.com/apikey)
-
-Uso:
-    python ai_dns_summary.py example.com
-"""
 
 import argparse
 import json

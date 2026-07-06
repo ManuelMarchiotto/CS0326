@@ -1,28 +1,4 @@
 
-"""
-dork_search.py
-Esegue query di Google Dorking usando l'API ufficiale Google Custom Search
-(evita scraping diretto delle SERP, che viola i ToS di Google).
-
-Setup richiesto:
-1. Crea un motore di ricerca personalizzato su https://programmablesearchengine.google.com/
-    -> imposta "Search the entire web" e recupera il tuo Search Engine ID (cx)
-2. Genera una API key su https://console.cloud.google.com/apis/credentials
-    e abilita "Custom Search API"
-3. Esporta le variabili d'ambiente:
-    export GOOGLE_API_KEY="la_tua_chiave"
-    export GOOGLE_CX="il_tuo_cx"
-
-Uso:
-    python dork_search.py example.com
-    python dork_search.py example.com --dorks "filetype:pdf" "inurl:admin"
-
-NOTA ETICA:
-Usa i dork solo per verificare l'esposizione di informazioni sui tuoi
-domini o su target per cui hai autorizzazione esplicita (es. bug bounty
-con scope firmato, penetration test autorizzato).
-"""
-
 import argparse
 import json
 import os

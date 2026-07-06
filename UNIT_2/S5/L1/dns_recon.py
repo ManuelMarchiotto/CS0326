@@ -1,21 +1,4 @@
-#!/usr/bin/env python3
-"""
-dns_recon.py
-Raccolta passiva di informazioni DNS e WHOIS su un dominio.
 
-Uso:
-    python dns_recon.py example.com
-    python dns_recon.py example.com --types A MX TXT NS
-
-Requisiti:
-    pip install dnspython python-whois --break-system-packages
-
-NOTA ETICA:
-Usa questo script solo su domini che possiedi o che sei esplicitamente
-autorizzato a testare. La raccolta DNS/WHOIS è generalmente considerata
-OSINT passivo/legale su informazioni pubbliche, ma resta responsabilità
-tua verificare i termini di servizio e le normative applicabili.
-"""
 
 import argparse
 import json
