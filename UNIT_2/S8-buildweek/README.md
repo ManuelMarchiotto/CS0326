@@ -68,9 +68,9 @@ Ricordate che un BOF sfrutta una vulnerabilità nel codice relativo alla mancanz
 Sulla macchina Metasploitable ci sono diversi servizi in ascolto potenzialmente vulnerabili. 
 
 È richiesto allo studente di: 
-● Effettuare un Vulnerability Scanning (basic scan) con Nessus sulla macchina Metasploitable. 
-● Sfruttare la vulnerabilità del servizio attivo sulla porta 445 TCP utilizzando MSFConsole (vedere suggerimento). 
-● Eseguire il comando «ifconfig» una volta ottenuta la sessione per verificare lʼindirizzo di rete della macchina vittima. 
+- Effettuare un Vulnerability Scanning (basic scan) con Nessus sulla macchina Metasploitable. 
+- Sfruttare la vulnerabilità del servizio attivo sulla porta 445 TCP utilizzando MSFConsole (vedere suggerimento). 
+- Eseguire il comando «ifconfig» una volta ottenuta la sessione per verificare lʼindirizzo di rete della macchina vittima. 
 
 Requisiti laboratorio Giorno 4: 
 IP Kali Linux: 192.168.50.100 
