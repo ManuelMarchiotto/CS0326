@@ -15,7 +15,7 @@
 ### Domanda (Punto e)
 * **Domanda:** Quali sono gli indirizzi IP di origine e destinazione? A quali interfacce di rete sono associati questi indirizzi IP?
 * **Risposta:** 
-  * **IP di origine:** È l'indirizzo IPv4 privato assegnato al **PC locale** (es. `192.168.1.X` o `10.X.X.X`).
+  * **IP di origine:** È l'indirizzo IPv4 privato assegnato al **PC locale** (`10.0.2.15`).
   * **IP di destinazione:** È l'indirizzo IPv4 del **Server DNS** utilizzato dalla macchina per la risoluzione dei nomi (può essere l'IP del router locale, del provider ISP o un resolver pubblico come `8.8.8.8` o `1.1.1.1`).
 
 ---
