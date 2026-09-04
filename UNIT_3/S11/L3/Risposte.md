@@ -23,7 +23,7 @@
 ### Domanda (Punto f)
 * **Domanda:** Quali sono le porte di origine e destinazione? Qual è il numero di porta DNS predefinito?
 * **Risposta:** 
-  * **Porta di origine:** È una porta dinamica/ephemerale casuale generata dal client (es. `54321` o superiore a `1024`).
+  * **Porta di origine:** È una porta dinamica/ephemerale casuale generata dal client (`44536`).
   * **Porta di destinazione:** È la porta `53`.
   * **Porta DNS predefinita:** Il numero di porta predefinito per il servizio DNS è **53** (utilizza sia UDP che TCP, anche se le query standard usano **UDP/53**).
 
